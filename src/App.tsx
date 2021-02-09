@@ -1,25 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { lazy, Suspense } from 'react';
+import { ReactNode } from 'react';
+import { Component } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+// Style
+import { GlobalStyle } from './App.style'
+//url
+import { pageurl } from './pageurl/pageurl'
+//Pages
+import WelcomePage from './pages/WelcomePage'
+import TriviaPage from './pages/TriviaPage'
+import ResultPage from './pages/ResultPage'
+//404
+import Page404 from './pages/Page404'
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <GlobalStyle/>
+      <Switch>  
+        <Route render={() => <WelcomePage/> } exact path={ pageurl.home }/>
+        <Route render={() => <TriviaPage/> } exact path={ pageurl.triviapage }/>
+        <Route render={() => <ResultPage/> } exact path={ pageurl.scorepage }/>
+        <Route render={() => <Page404/> }  path={ "*" }/>
+      </Switch>
+    </Router>
   );
 }
 
